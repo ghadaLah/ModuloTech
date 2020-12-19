@@ -1,16 +1,18 @@
 package com.test.modulotech.model
 
+import java.io.Serializable
+
 data class ResponseModel(
      val devices: List<DeviceData>,
      val user: UserModel
 )
 
 data class UserModel(
-     val firstName: String,
-     val lastName: String,
-     val address: AdressModel,
-     val birthDate: Long
-)
+     val firstName: String? = null,
+     val lastName: String? = null,
+     val address: AdressModel? = null,
+     val birthDate: Long? = null
+): Serializable
 
 data class AdressModel(
      val city: String,
@@ -18,7 +20,7 @@ data class AdressModel(
      val street: String,
      val streetCode: String,
      val country: String
-)
+): Serializable
 
 /*
 open class deviceList (

@@ -21,23 +21,13 @@ class HomeViewModel(): BaseViewModel() {
     var errorMessage = MutableLiveData<String>()
     var user = MutableLiveData<UserModel>()
 
-    val fictifList = listOf<DeviceData>(
-        DeviceData.LightModel( 1,"Lampe - Cuisine", 50, ModeStatus.ON, ProductType.Light),
-        DeviceData.RollerShutterModel( 2,"Volet roulant - Salon", 70, ProductType.RollerShutter),
-        DeviceData.HeaterModel(3,"Radiateur - Chambre", ModeStatus.OFF, 20.0, ProductType.Heater),
-        DeviceData.LightModel( 4,"Lampe - salon", 100, ModeStatus.ON, ProductType.Light),
-        DeviceData.RollerShutterModel( 5,"Volet roulant", 0, ProductType.RollerShutter),
-        DeviceData.HeaterModel(6,"Radiateur - Salon", ModeStatus.OFF, 18.0, ProductType.Heater))
-
     var disposable = CompositeDisposable()
 
     fun get() {
-        var aa = mutableListOf<DeviceData>()
         deviceApi.getDevices()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                Log.d("getdevices", "getdevices success $it")
                 user.postValue(it.user)
                 it.devices.forEach { device ->
                     /*when(device.productType) {
@@ -49,9 +39,7 @@ class HomeViewModel(): BaseViewModel() {
                 }
                 //devicesList.postValue(it.devices)
                 adapter.addDevices(it.devices)
-                //devicesList.postValue(it.devices)
             }, {
-                Log.d("getdevices", "getdevices error $it")
                 errorMessage.postValue("Error get devices $it")
             })
     }
