@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginBottom="@dimen/margin_10"
+    app:cardCornerRadius="@dimen/margin_10"
+    android:padding="@dimen/margin_10">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_10"
+        android:layout_marginTop="@dimen/margin_10">
+
+        <ImageView
+            android:id="@+id/shatterImg"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/roller_shatter"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/rollerShutterName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="title"
+            android:paddingStart="@dimen/margin_20"
+            app:layout_constraintTop_toBottomOf="@id/shatterImg"
+            android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
+
+        <TextView
+            android:id="@+id/rollerShutterType"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="RollerShutter"
+            android:paddingStart="@dimen/margin_20"
+            android:paddingTop="@dimen/margin_10"
+            app:layout_constraintTop_toBottomOf="@id/rollerShutterName"
+            android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Subtitle"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
