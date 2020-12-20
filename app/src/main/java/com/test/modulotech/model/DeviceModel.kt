@@ -8,7 +8,8 @@ sealed class DeviceData: Serializable {
         val deviceName: String? = null,
         val intensity: Int? = null,
         val mode: ModeStatus? = null,
-        val productType: ProductType? = null
+        val productType: ProductType? = null,
+        var listener: ((LightModel) -> Unit)? = null
     ): DeviceData()
 
     data class RollerShutterModel(

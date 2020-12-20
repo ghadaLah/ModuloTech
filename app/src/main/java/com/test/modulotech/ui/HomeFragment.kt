@@ -61,7 +61,10 @@ class HomeFragment: BaseFragment() {
 
         viewModel.navigateToDevice.observe(viewLifecycleOwner, Observer {
             when(it) {
-                is DeviceData.LightModel -> findNavController().navigate(HomeFragmentDirections.homeFragmentToLightModifier(it))
+                is DeviceData.LightModel -> {
+                    it.listener = {device -> viewModel.updateLightDevice(device)}
+                    findNavController().navigate(HomeFragmentDirections.homeFragmentToLightModifier(it))
+                }
                 else -> findNavController().navigate(HomeFragmentDirections.homeFragmentToProfileFragment(user!!))
             }
 

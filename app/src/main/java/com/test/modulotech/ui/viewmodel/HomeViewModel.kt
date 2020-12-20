@@ -23,6 +23,8 @@ class HomeViewModel(): BaseViewModel(), DeviceClickListener {
     var user = MutableLiveData<UserModel>()
     var navigateToDevice = MutableLiveData<DeviceData>()
 
+    val devices = mutableListOf<DeviceData>()
+
     var disposable = CompositeDisposable()
 
     fun get() {
@@ -40,6 +42,7 @@ class HomeViewModel(): BaseViewModel(), DeviceClickListener {
                     }*/
                 }
                 //devicesList.postValue(it.devices)
+                devices.addAll(it.devices)
                 adapter.addDevices(it.devices)
             }, {
                 errorMessage.postValue("Error get devices $it")
@@ -48,5 +51,13 @@ class HomeViewModel(): BaseViewModel(), DeviceClickListener {
 
     override fun showDeviceModifier(device: DeviceData) {
         navigateToDevice.postValue(device)
+    }
+
+    fun  updateLightDevice(device: DeviceData.LightModel) {
+        val deviceIndex = devices.indexOfFirst { (it as DeviceData.LightModel).id == device.id }
+        if(deviceIndex >= 0) {
+            devices.set(deviceIndex, device)
+            adapter.addDevices(devices)
+        }
     }
 }
