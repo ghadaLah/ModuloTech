@@ -3,4 +3,5 @@
     <string name="validate">Validate</string>
     <string name="cancel">Cancel</string>
     <string name="intensity_bounds_error">intensity should be a number between 0 and 100</string>
+    <string name="temperature_bounds_error">temperature should be a number between 7° and 28°</string>
 </resources>

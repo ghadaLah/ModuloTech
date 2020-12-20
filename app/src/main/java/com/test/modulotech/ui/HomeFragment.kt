@@ -18,6 +18,7 @@ import com.bumptech.glide.Glide
 import com.test.modulotech.R
 import com.test.modulotech.base.BaseFragment
 import com.test.modulotech.model.DeviceData
+import com.test.modulotech.model.ProductType
 import com.test.modulotech.model.UserModel
 import com.test.modulotech.ui.viewmodel.HomeViewModel
 import kotlinx.android.synthetic.main.custom_profile_pic.*
@@ -62,10 +63,17 @@ class HomeFragment: BaseFragment() {
         viewModel.navigateToDevice.observe(viewLifecycleOwner, Observer {
             when(it) {
                 is DeviceData.LightModel -> {
-                    it.listener = {device -> viewModel.updateLightDevice(device)}
+                    it.listener = {device -> viewModel.updateDevice(device, ProductType.Light)}
                     findNavController().navigate(HomeFragmentDirections.homeFragmentToLightModifier(it))
                 }
-                else -> findNavController().navigate(HomeFragmentDirections.homeFragmentToProfileFragment(user!!))
+                is DeviceData.HeaterModel -> {
+                    it.listener = {device -> viewModel.updateDevice(device, ProductType.Heater)}
+                    findNavController().navigate(HomeFragmentDirections.homeFragmentToHeaterModifier(it))
+                }
+                is DeviceData.RollerShutterModel -> {
+                    it.listener = {device -> viewModel.updateDevice(device, ProductType.RollerShutter)}
+                    findNavController().navigate(HomeFragmentDirections.homefragmentToRollerModifier(it))
+                }
             }
 
         })

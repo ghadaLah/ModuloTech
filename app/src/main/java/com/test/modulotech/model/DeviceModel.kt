@@ -16,7 +16,8 @@ sealed class DeviceData: Serializable {
         val id: Int?= null,
         val deviceName: String? = null,
         val position: Int? = null,
-        val productType: ProductType? = null
+        val productType: ProductType? = null,
+        var listener: ((RollerShutterModel) -> Unit)? = null
     ): DeviceData()
 
     data class HeaterModel(
@@ -24,7 +25,8 @@ sealed class DeviceData: Serializable {
         val deviceName: String? = null,
         val mode: ModeStatus? = null,
         val temperature: Double? = null,
-        val productType: ProductType? = null
+        val productType: ProductType? = null,
+        var listener: ((HeaterModel) -> Unit)? = null
     ): DeviceData()
 }
 

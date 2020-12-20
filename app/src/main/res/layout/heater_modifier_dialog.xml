@@ -1,0 +1,156 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/margin_20">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/charbon_grey"
+        android:paddingBottom="@dimen/margin_10">
+
+        <ImageView
+            android:id="@+id/heaterImg"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:layout_margin="@dimen/margin_10"
+            android:scaleType="fitXY"
+            android:src="@drawable/heater_img"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:layout_editor_absoluteX="10dp" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/heaterModeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/heaterImg"
+            android:background="@color/dark_grey"
+            android:layout_margin="@dimen/margin_20">
+
+            <ImageView
+                android:id="@+id/heaterIc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/heaterModeTitle"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/ic_light_off"
+                android:paddingBottom="@dimen/margin_10"/>
+
+            <TextView
+                android:id="@+id/heaterModeTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/heaterIc"
+                app:layout_constraintEnd_toStartOf="@id/heaterModeSwitcher"
+                app:layout_constraintTop_toTopOf="@id/heaterIc"
+                app:layout_constraintBottom_toBottomOf="@id/heaterIc"
+                android:text="Mode"
+                android:textAppearance="@style/TextViewTitle"
+                android:layout_marginStart="@dimen/margin_20"/>
+
+            <Switch
+                android:id="@+id/heaterModeSwitcher"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/heaterModeTitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/heaterIc"
+                app:layout_constraintBottom_toBottomOf="@id/heaterIc"
+                android:layout_marginStart="@dimen/margin_30"
+                android:layout_marginEnd="@dimen/margin_30"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/heaterTemperatureLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/heaterModeLayout"
+            android:background="@color/dark_grey"
+            android:layout_margin="@dimen/margin_20">
+
+            <TextView
+                android:id="@+id/heaterTemperatureTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/heaterTemperatureAdjust"
+                android:text="Temperature"
+                android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Title"
+                android:layout_marginStart="@dimen/margin_20"/>
+
+            <LinearLayout
+                android:id="@+id/heaterTemperatureAdjust"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                app:layout_constraintStart_toEndOf="@id/heaterTemperatureTitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="@dimen/margin_20"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/heaterTemperaturePlus"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textColor="@color/dark_grey"
+                    android:text="+"
+                    android:backgroundTint="@color/light_grey"/>
+
+                <EditText
+                    android:id="@+id/heaterTemperature"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1.5"
+                    android:inputType="numberDecimal"/>
+
+                <Button
+                    android:id="@+id/heaterTemperatureMinus"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:textColor="@color/dark_grey"
+                    android:text="-"
+                    android:backgroundTint="@color/light_grey"/>
+
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Button
+            android:id="@+id/heaterCancelBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/cancel"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toBottomOf="@id/heaterTemperatureLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/heaterValidateBtn"
+            android:layout_marginStart="@dimen/margin_20"
+            android:layout_marginTop="@dimen/margin_20"
+            android:backgroundTint="@color/dark_grey"/>
+
+        <Button
+            android:id="@+id/heaterValidateBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/validate"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toBottomOf="@id/heaterTemperatureLayout"
+            app:layout_constraintStart_toEndOf="@id/heaterCancelBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="@dimen/margin_20"
+            android:layout_marginTop="@dimen/margin_20"
+            android:layout_marginEnd="@dimen/margin_20"
+            android:backgroundTint="@color/dark_grey"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

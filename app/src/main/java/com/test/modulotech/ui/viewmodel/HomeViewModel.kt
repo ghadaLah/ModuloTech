@@ -53,8 +53,12 @@ class HomeViewModel(): BaseViewModel(), DeviceClickListener {
         navigateToDevice.postValue(device)
     }
 
-    fun  updateLightDevice(device: DeviceData.LightModel) {
-        val deviceIndex = devices.indexOfFirst { (it as DeviceData.LightModel).id == device.id }
+    fun  updateDevice(device: DeviceData, deviceType: ProductType) {
+        val deviceIndex = when(deviceType) {
+            ProductType.RollerShutter -> devices.indexOfFirst { it is DeviceData.RollerShutterModel && it.id == (device as DeviceData.RollerShutterModel).id }
+            ProductType.Heater -> devices.indexOfFirst { it is DeviceData.HeaterModel && it.id == (device as DeviceData.HeaterModel).id }
+            ProductType.Light -> devices.indexOfFirst { it is DeviceData.LightModel && it.id == (device as DeviceData.LightModel).id }
+        }
         if(deviceIndex >= 0) {
             devices.set(deviceIndex, device)
             adapter.addDevices(devices)
