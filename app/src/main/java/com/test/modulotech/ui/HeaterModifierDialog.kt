@@ -96,11 +96,30 @@ class HeaterModifierDialog: DialogFragment() {
         heaterTemperature.doAfterTextChanged {
             if(!it.isNullOrBlank()) {
                 val temperature  = it.toString().toDouble()
-                if(temperature in 7.0..28.0)
+                if(temperature in 7.0..28.0) {
                     this.temperature = temperature
-                else
+                    heaterTemperature.error = null
+                } else
                     heaterTemperature.error = getString(R.string.temperature_bounds_error)
             }
+        }
+        heaterTemperaturePlus.setOnClickListener {
+            val temperature = heaterTemperature.text.toString().toDouble()
+            if(temperature in 7.0..27.5) {
+                this.temperature = temperature + 0.5
+                heaterTemperature.setText(this.temperature.toString())
+                heaterTemperature.error = null
+            } else
+                heaterTemperature.error = getString(R.string.temperature_bounds_error)
+        }
+        heaterTemperatureMinus.setOnClickListener {
+            val temperature = heaterTemperature.text.toString().toDouble()
+            if(temperature in 7.5..28.0) {
+                this.temperature = temperature - 0.5
+                heaterTemperature.setText(this.temperature.toString())
+                heaterTemperature.error = null
+            } else
+                heaterTemperature.error = getString(R.string.temperature_bounds_error)
         }
         heaterValidateBtn.setOnClickListener {
             listener?.invoke(DeviceData.HeaterModel(id, deviceName,mode,  temperature, productType))
