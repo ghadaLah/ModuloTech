@@ -1,7 +1,9 @@
 package com.test.modulotech.model
 
+import androidx.room.Entity
 import java.io.Serializable
 
+@Entity
 data class ResponseModel(
      val devices: List<DeviceData>,
      val user: UserModel

@@ -1,4 +1,4 @@
-package com.test.modulotech
+package com.test.modulotech.utils
 
 fun String.Companion.default() = ""
 fun Int.Companion.default() = -1

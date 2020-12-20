@@ -1,9 +1,14 @@
 package com.test.modulotech.model
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import java.io.Serializable
 
+@Entity
 sealed class DeviceData: Serializable {
+    @Entity
     data class LightModel(
+        @field:PrimaryKey
         val id: Int?= null,
         val deviceName: String? = null,
         val intensity: Int? = null,
@@ -12,7 +17,9 @@ sealed class DeviceData: Serializable {
         var listener: ((LightModel) -> Unit)? = null
     ): DeviceData()
 
+    @Entity
     data class RollerShutterModel(
+        @field:PrimaryKey
         val id: Int?= null,
         val deviceName: String? = null,
         val position: Int? = null,
@@ -20,7 +27,9 @@ sealed class DeviceData: Serializable {
         var listener: ((RollerShutterModel) -> Unit)? = null
     ): DeviceData()
 
+    @Entity
     data class HeaterModel(
+        @field:PrimaryKey
         val id: Int?= null,
         val deviceName: String? = null,
         val mode: ModeStatus? = null,

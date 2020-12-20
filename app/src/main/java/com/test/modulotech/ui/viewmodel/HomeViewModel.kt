@@ -6,12 +6,14 @@ import com.test.modulotech.model.*
 import com.test.modulotech.network.DeviceApi
 import com.test.modulotech.ui.DeviceClickListener
 import com.test.modulotech.ui.EquipmentAdapter
+import io.reactivex.Observable
+import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class HomeViewModel(): BaseViewModel(), DeviceClickListener {
+class HomeViewModel(val dao: DevicesDao): BaseViewModel(), DeviceClickListener {
 
     @Inject
     lateinit var deviceApi: DeviceApi
@@ -26,25 +28,27 @@ class HomeViewModel(): BaseViewModel(), DeviceClickListener {
     var disposable = CompositeDisposable()
 
     fun get() {
-        deviceApi.getDevices()
+        disposable.add(
+            Single.fromCallable { dao.data }
+            .map { data ->
+                if(data == null)
+                    deviceApi.getDevices().map {response ->
+                        dao.insertAll(response)
+                        Single.just(response)
+                    }
+                else
+                    Single.just(data)
+            }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 user.postValue(it.user)
-                it.devices.forEach { device ->
-                    /*when(device.productType) {
-                        ProductType.RollerShutter -> aa.add(device as DeviceData)
-                        ProductType.Heater -> TODO()
-                        ProductType.Light -> TODO()
-                        null -> TODO()
-                    }*/
-                }
-                //devicesList.postValue(it.devices)
                 devices.addAll(it.devices)
                 adapter.updateDeviceList(it.devices)
             }, {
                 errorMessage.postValue("Error get devices $it")
             })
+        )
     }
 
     override fun showDeviceModifier(device: DeviceData) {
