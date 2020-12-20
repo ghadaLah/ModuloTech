@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.test.modulotech.R
 import com.test.modulotech.base.BaseFragment
+import com.test.modulotech.model.DeviceData
 import com.test.modulotech.model.UserModel
 import com.test.modulotech.ui.viewmodel.HomeViewModel
 import kotlinx.android.synthetic.main.custom_profile_pic.*
@@ -56,6 +57,14 @@ class HomeFragment: BaseFragment() {
 
         viewModel.user.observe(viewLifecycleOwner, Observer {
             user = it
+        })
+
+        viewModel.navigateToDevice.observe(viewLifecycleOwner, Observer {
+            when(it) {
+                is DeviceData.LightModel -> findNavController().navigate(HomeFragmentDirections.homeFragmentToLightModifier(it))
+                else -> findNavController().navigate(HomeFragmentDirections.homeFragmentToProfileFragment(user!!))
+            }
+
         })
     }
 

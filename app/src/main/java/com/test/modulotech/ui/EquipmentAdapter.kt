@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.heater_item.view.*
 import kotlinx.android.synthetic.main.light_item.view.*
 import kotlinx.android.synthetic.main.roller_shatter_item.view.*
 
-class EquipmentAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class EquipmentAdapter(val deviceSelector: DeviceClickListener): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var equipmentList: MutableList<DeviceData> = mutableListOf()
 
@@ -22,11 +22,11 @@ class EquipmentAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, typeView: Int): RecyclerView.ViewHolder {
         if(typeView == lightType) {
-            return LightViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.light_item, parent, false))
+            return LightViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.light_item, parent, false), deviceSelector)
         } else if(typeView == heaterType) {
-            return HeaterViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.heater_item, parent, false))
+            return HeaterViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.heater_item, parent, false), deviceSelector)
         } else {
-            return RollerShutterViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.roller_shatter_item, parent, false))
+            return RollerShutterViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.roller_shatter_item, parent, false), deviceSelector)
         }
     }
 
@@ -57,21 +57,34 @@ class EquipmentAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         }
     }
 
-    inner class LightViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+    inner class LightViewHolder(itemView: View, deviceSelector: DeviceClickListener): RecyclerView.ViewHolder(itemView) {
         fun bindView(device: DeviceData.LightModel) {
             itemView.lightName.text = device.deviceName
+            itemView.setOnClickListener {
+                deviceSelector.showDeviceModifier(device)
+            }
         }
     }
 
-    inner class HeaterViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+    inner class HeaterViewHolder(itemView: View, deviceSelector: DeviceClickListener): RecyclerView.ViewHolder(itemView) {
         fun bindView(device: DeviceData.HeaterModel) {
             itemView.heaterName.text = device.deviceName
+            itemView.setOnClickListener {
+                deviceSelector.showDeviceModifier(device)
+            }
         }
     }
 
-    inner class RollerShutterViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
+    inner class RollerShutterViewHolder(itemView: View, deviceSelector: DeviceClickListener): RecyclerView.ViewHolder(itemView) {
         fun bindView(device: DeviceData.RollerShutterModel) {
             itemView.rollerShutterName.text = device.deviceName
+            itemView.setOnClickListener {
+                deviceSelector.showDeviceModifier(device)
+            }
         }
     }
+}
+
+interface DeviceClickListener {
+    fun showDeviceModifier(device: DeviceData)
 }

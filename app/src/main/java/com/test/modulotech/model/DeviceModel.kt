@@ -1,6 +1,8 @@
 package com.test.modulotech.model
 
-sealed class DeviceData {
+import java.io.Serializable
+
+sealed class DeviceData: Serializable {
     data class LightModel(
         val id: Int?= null,
         val deviceName: String? = null,

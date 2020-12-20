@@ -6,20 +6,22 @@ import androidx.lifecycle.ViewModel
 import com.test.modulotech.base.BaseViewModel
 import com.test.modulotech.model.*
 import com.test.modulotech.network.DeviceApi
+import com.test.modulotech.ui.DeviceClickListener
 import com.test.modulotech.ui.EquipmentAdapter
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 
-class HomeViewModel(): BaseViewModel() {
+class HomeViewModel(): BaseViewModel(), DeviceClickListener {
 
     @Inject
     lateinit var deviceApi: DeviceApi
-    var adapter  = EquipmentAdapter()
+    var adapter  = EquipmentAdapter(this)
     var devicesList = MutableLiveData<List<DeviceData>>()
     var errorMessage = MutableLiveData<String>()
     var user = MutableLiveData<UserModel>()
+    var navigateToDevice = MutableLiveData<DeviceData>()
 
     var disposable = CompositeDisposable()
 
@@ -42,5 +44,9 @@ class HomeViewModel(): BaseViewModel() {
             }, {
                 errorMessage.postValue("Error get devices $it")
             })
+    }
+
+    override fun showDeviceModifier(device: DeviceData) {
+        navigateToDevice.postValue(device)
     }
 }

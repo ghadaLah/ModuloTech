@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="@dimen/margin_20">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/charbon_grey"
+        android:paddingBottom="@dimen/margin_10">
+
+        <ImageView
+            android:id="@+id/lightImg"
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:src="@drawable/light_img"
+            android:layout_margin="@dimen/margin_10"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/lightModeLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/lightImg"
+            android:background="@color/dark_grey"
+            android:layout_margin="@dimen/margin_20">
+
+            <ImageView
+                android:id="@+id/lightIc"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/ligntModeTitle"
+                app:layout_constraintTop_toTopOf="parent"
+                android:src="@drawable/ic_light_off"
+                android:paddingBottom="@dimen/margin_10"/>
+
+            <TextView
+                android:id="@+id/ligntModeTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/lightIc"
+                app:layout_constraintEnd_toStartOf="@id/lightModeSwitcher"
+                app:layout_constraintTop_toTopOf="@id/lightIc"
+                app:layout_constraintBottom_toBottomOf="@id/lightIc"
+                android:text="Mode"
+                android:textAppearance="@style/TextViewTitle"
+                android:layout_marginStart="@dimen/margin_20"/>
+
+            <Switch
+                android:id="@+id/lightModeSwitcher"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toEndOf="@id/ligntModeTitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/lightIc"
+                app:layout_constraintBottom_toBottomOf="@id/lightIc"
+                android:layout_marginStart="@dimen/margin_30"
+                android:layout_marginEnd="@dimen/margin_30"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/lightIntensityLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/lightModeLayout"
+            android:background="@color/dark_grey"
+            android:layout_margin="@dimen/margin_20">
+
+            <TextView
+                android:id="@+id/ligntIntensityTitle"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/lightIntensity"
+                android:text="Intensity"
+                android:textAppearance="@style/TextViewTitle"
+                android:layout_marginStart="@dimen/margin_30"/>
+
+            <EditText
+                android:id="@+id/lightIntensity"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                app:layout_constraintStart_toEndOf="@id/ligntIntensityTitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:layout_marginEnd="@dimen/margin_30"
+                android:layout_marginStart="@dimen/margin_30"
+                android:inputType="number"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <Button
+            android:id="@+id/lightCancelBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/cancel"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toBottomOf="@id/lightIntensityLayout"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@id/lightValidateBtn"
+            android:layout_marginStart="@dimen/margin_20"
+            android:layout_marginTop="@dimen/margin_20"
+            android:backgroundTint="@color/dark_grey"/>
+
+        <Button
+            android:id="@+id/lightValidateBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/validate"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toBottomOf="@id/lightIntensityLayout"
+            app:layout_constraintStart_toEndOf="@id/lightCancelBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="@dimen/margin_20"
+            android:layout_marginTop="@dimen/margin_20"
+            android:layout_marginEnd="@dimen/margin_20"
+            android:backgroundTint="@color/dark_grey"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>

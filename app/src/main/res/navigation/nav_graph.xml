@@ -26,6 +26,9 @@
         <action
             android:id="@+id/homeFragment_to_ProfileFragment"
             app:destination="@id/profileFragment" />
+        <action
+            android:id="@+id/homeFragment_to_lightModifier"
+            app:destination="@id/lightModifierDialog" />
     </fragment>
 
     <fragment
@@ -42,5 +45,16 @@
             android:id="@+id/profileFragment_back_to_homeFragment"
             app:destination="@id/homeFragment" />
     </fragment>
+
+    <dialog
+        android:id="@+id/lightModifierDialog"
+        android:name="com.test.modulotech.ui.LightModifierDialog"
+        android:label="LightModifierDialog"
+        tools:layout="@layout/light_modifier_dialog">
+
+        <argument
+            android:name="lightArgs"
+            app:argType="com.test.modulotech.model.DeviceData" />
+    </dialog>
 
 </navigation>
