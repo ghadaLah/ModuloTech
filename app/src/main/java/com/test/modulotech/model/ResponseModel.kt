@@ -8,18 +8,18 @@ data class ResponseModel(
 )
 
 data class UserModel(
-     val firstName: String? = null,
-     val lastName: String? = null,
-     val address: AdressModel? = null,
-     val birthDate: Long? = null
+     var firstName: String? = null,
+     var lastName: String? = null,
+     var address: AdressModel? = null,
+     var birthDate: Long? = null
 ): Serializable
 
 data class AdressModel(
-     val city: String,
-     val postalCode: Long,
-     val street: String,
-     val streetCode: String,
-     val country: String
+     var city: String,
+     var postalCode: Long,
+     var street: String,
+     var streetCode: String,
+     var country: String
 ): Serializable
 
 /*

@@ -6,6 +6,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/toolbarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        style="@style/Widget.MaterialComponents.Toolbar.Primary">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/materialToolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?actionBarSize"
+            android:elevation="1dp"
+            app:title="@string/app_name"
+            app:navigationIcon="@drawable/arrow_back_ic"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/firstProfileComponent"
         android:layout_width="match_parent"
@@ -47,7 +65,7 @@
             android:textAppearance="@style/TextViewTitle"
             android:padding="@dimen/margin_10"/>
 
-        <com.google.android.material.textfield.TextInputEditText
+        <TextView
             android:id="@+id/userBirthday"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -67,20 +85,115 @@
         android:layout_weight="1"
         android:background="@color/light_grey">
 
+        <TextView
+            android:id="@+id/adressTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Adress"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:textAppearance="@style/TextViewTitle"
+            android:textColor="@color/dark_blue"/>
+
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/city"
-            android:layout_width="match_parent"
+            android:id="@+id/streetCode"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/InputOutlinedText"
-            app:layout_constraintTop_toTopOf="parent"
+            android:minWidth="120dp"
+            android:textColorHint="@color/dark_grey"
+            app:layout_constraintTop_toBottomOf="@id/adressTitle"
             app:layout_constraintStart_toStartOf="parent"
             android:background="@color/white">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/streetCodeText"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="enter city"
-                android:text="Issy-les-Moulineaux"
+                android:hint="street code"
+                android:textColor="@color/dark_blue"
+                android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionMode.Subtitle"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/street"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:minWidth="150dp"
+            style="@style/InputOutlinedText"
+            android:textColorHint="@color/dark_grey"
+            app:layout_constraintTop_toBottomOf="@id/adressTitle"
+            app:layout_constraintStart_toEndOf="@id/streetCode"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@color/white">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/streetText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="street"
+                android:textColor="@color/dark_blue"
+                android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionMode.Subtitle"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/city"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="100dp"
+            style="@style/InputOutlinedText"
+            android:textColorHint="@color/dark_grey"
+            app:layout_constraintTop_toBottomOf="@id/street"
+            app:layout_constraintStart_toStartOf="parent"
+            android:background="@color/white">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/cityText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="city"
+                android:textColor="@color/dark_blue"
+                android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionMode.Subtitle"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/postalCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="120dp"
+            style="@style/InputOutlinedText"
+            android:textColorHint="@color/dark_grey"
+            app:layout_constraintTop_toBottomOf="@id/city"
+            app:layout_constraintStart_toStartOf="parent"
+            android:background="@color/white">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/postalCodeText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="postal code"
+                android:inputType="number"
+                android:textColor="@color/dark_blue"
+                android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionMode.Subtitle"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/country"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="100dp"
+            style="@style/InputOutlinedText"
+            android:textColorHint="@color/dark_grey"
+            app:layout_constraintTop_toBottomOf="@id/city"
+            app:layout_constraintStart_toEndOf="@id/postalCode"
+            android:background="@color/white">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/countryText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="country"
                 android:textColor="@color/dark_blue"
                 android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionMode.Subtitle"/>
         </com.google.android.material.textfield.TextInputLayout>

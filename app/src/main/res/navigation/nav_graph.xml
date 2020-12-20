@@ -34,8 +34,13 @@
         android:label="ProfileFragment"
         tools:layout="@layout/profile_fragment">
 
-        <argument android:name="data"
-            app:argType="com.test.modulotech.model.UserModel"/>
+        <argument
+            android:name="data"
+            app:argType="com.test.modulotech.model.UserModel" />
+
+        <action
+            android:id="@+id/profileFragment_back_to_homeFragment"
+            app:destination="@id/homeFragment" />
     </fragment>
 
 </navigation>
