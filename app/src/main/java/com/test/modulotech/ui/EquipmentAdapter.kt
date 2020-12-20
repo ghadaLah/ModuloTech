@@ -1,8 +1,10 @@
 package com.test.modulotech.ui
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.RecyclerView
 import com.test.modulotech.R
 import com.test.modulotech.model.DeviceData
@@ -49,7 +51,7 @@ class EquipmentAdapter(val deviceSelector: DeviceClickListener): RecyclerView.Ad
         }
     }
 
-    fun addDevices(devices: List<DeviceData>) {
+    fun updateDeviceList(devices: List<DeviceData>) {
         equipmentList.clear()
         if(!devices.isNullOrEmpty()) {
             equipmentList.addAll(devices)
@@ -83,8 +85,10 @@ class EquipmentAdapter(val deviceSelector: DeviceClickListener): RecyclerView.Ad
             }
         }
     }
+
 }
 
 interface DeviceClickListener {
     fun showDeviceModifier(device: DeviceData)
+    fun deleteDevice(position: Int)
 }

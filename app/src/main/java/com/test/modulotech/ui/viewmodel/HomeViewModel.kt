@@ -1,8 +1,6 @@
 package com.test.modulotech.ui.viewmodel
 
-import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.test.modulotech.base.BaseViewModel
 import com.test.modulotech.model.*
 import com.test.modulotech.network.DeviceApi
@@ -43,7 +41,7 @@ class HomeViewModel(): BaseViewModel(), DeviceClickListener {
                 }
                 //devicesList.postValue(it.devices)
                 devices.addAll(it.devices)
-                adapter.addDevices(it.devices)
+                adapter.updateDeviceList(it.devices)
             }, {
                 errorMessage.postValue("Error get devices $it")
             })
@@ -53,7 +51,12 @@ class HomeViewModel(): BaseViewModel(), DeviceClickListener {
         navigateToDevice.postValue(device)
     }
 
-    fun  updateDevice(device: DeviceData, deviceType: ProductType) {
+    override fun deleteDevice(position: Int) {
+        devices.removeAt(position)
+        adapter.updateDeviceList(devices)
+    }
+
+    fun updateDevice(device: DeviceData, deviceType: ProductType) {
         val deviceIndex = when(deviceType) {
             ProductType.RollerShutter -> devices.indexOfFirst { it is DeviceData.RollerShutterModel && it.id == (device as DeviceData.RollerShutterModel).id }
             ProductType.Heater -> devices.indexOfFirst { it is DeviceData.HeaterModel && it.id == (device as DeviceData.HeaterModel).id }
@@ -61,7 +64,9 @@ class HomeViewModel(): BaseViewModel(), DeviceClickListener {
         }
         if(deviceIndex >= 0) {
             devices.set(deviceIndex, device)
-            adapter.addDevices(devices)
+            adapter.updateDeviceList(devices)
         }
     }
+
+
 }
