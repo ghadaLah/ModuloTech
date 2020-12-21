@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.android.material.snackbar.Snackbar
 import com.test.modulotech.R
 import com.test.modulotech.base.BaseFragment
 import com.test.modulotech.model.DeviceData
@@ -31,6 +32,8 @@ class HomeFragment: BaseFragment() {
 
     lateinit var viewModel: HomeViewModel
     private var user: UserModel? = null
+
+    private var snackbar: Snackbar? = null
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         viewModel = ViewModelProvider(this).get(HomeViewModel::class.java)
@@ -81,6 +84,20 @@ class HomeFragment: BaseFragment() {
 
         val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
         itemTouchHelper.attachToRecyclerView(equipmentList)
+
+        viewModel.progressbarIsVisible.observe(viewLifecycleOwner, {
+            loading.visibility = it
+        })
+
+        viewModel.errorMessage.observe(viewLifecycleOwner, {
+            if(it == null) {
+                snackbar?.dismiss()
+            } else {
+                snackbar = Snackbar.make(homeLayout, it, Snackbar.LENGTH_INDEFINITE)
+                snackbar?.setAction("Retry", viewModel.errorClickListener)
+                snackbar?.show()
+            }
+        })
     }
 
     val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT){

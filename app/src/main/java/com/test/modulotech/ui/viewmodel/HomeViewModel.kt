@@ -1,5 +1,6 @@
 package com.test.modulotech.ui.viewmodel
 
+import android.view.View
 import androidx.lifecycle.MutableLiveData
 import com.test.modulotech.base.BaseViewModel
 import com.test.modulotech.model.*
@@ -20,30 +21,25 @@ class HomeViewModel(): BaseViewModel(), DeviceClickListener {
     var errorMessage = MutableLiveData<String>()
     var user = MutableLiveData<UserModel>()
     var navigateToDevice = MutableLiveData<DeviceData>()
+    var progressbarIsVisible = MutableLiveData<Int>()
 
     val devices = mutableListOf<DeviceData>()
 
     var disposable = CompositeDisposable()
+    val errorClickListener = View.OnClickListener { get() }
 
     fun get() {
         deviceApi.getDevices()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+            .doOnSubscribe { showLoading() }
             .subscribe({
                 user.postValue(it.user)
-                it.devices.forEach { device ->
-                    /*when(device.productType) {
-                        ProductType.RollerShutter -> aa.add(device as DeviceData)
-                        ProductType.Heater -> TODO()
-                        ProductType.Light -> TODO()
-                        null -> TODO()
-                    }*/
-                }
-                //devicesList.postValue(it.devices)
                 devices.addAll(it.devices)
                 adapter.updateDeviceList(it.devices)
+                progressbarIsVisible.postValue(View.GONE)
             }, {
-                errorMessage.postValue("Error get devices $it")
+                showError(it)
             })
     }
 
@@ -68,5 +64,14 @@ class HomeViewModel(): BaseViewModel(), DeviceClickListener {
         }
     }
 
+    fun showLoading() {
+        progressbarIsVisible.postValue(View.VISIBLE)
+        errorMessage.postValue(null)
+    }
+
+    fun showError(exception: Throwable) {
+        progressbarIsVisible.postValue(View.GONE)
+        errorMessage.postValue("An error occured while retrieving devices info - [$exception]")
+    }
 
 }
